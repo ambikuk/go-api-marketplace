@@ -5,17 +5,17 @@ import (
 	"net/http"
 
 	"github.com/Sirupsen/logrus"
-	"github.com/go-ozzo/ozzo-dbx"
-	"github.com/go-ozzo/ozzo-routing"
-	"github.com/go-ozzo/ozzo-routing/auth"
-	"github.com/go-ozzo/ozzo-routing/content"
-	"github.com/go-ozzo/ozzo-routing/cors"
-	_ "github.com/lib/pq"
 	"github.com/ambikuk/go-api-marketplace/apis"
 	"github.com/ambikuk/go-api-marketplace/app"
 	"github.com/ambikuk/go-api-marketplace/daos"
 	"github.com/ambikuk/go-api-marketplace/errors"
 	"github.com/ambikuk/go-api-marketplace/services"
+	"github.com/go-ozzo/ozzo-dbx"
+	"github.com/go-ozzo/ozzo-routing"
+	"github.com/go-ozzo/ozzo-routing/auth"
+	"github.com/go-ozzo/ozzo-routing/content"
+	"github.com/go-ozzo/ozzo-routing/cors"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 func main() {
@@ -33,7 +33,7 @@ func main() {
 	logger := logrus.New()
 
 	// connect to the database
-	db, err := dbx.MustOpen("postgres", app.Config.DSN)
+	db, err := dbx.MustOpen("mysql", app.Config.DSN)
 	if err != nil {
 		panic(err)
 	}
@@ -52,7 +52,7 @@ func buildRouter(logger *logrus.Logger, db *dbx.DB) *routing.Router {
 	router := routing.New()
 
 	router.To("GET,HEAD", "/ping", func(c *routing.Context) error {
-		c.Abort()  // skip all other middlewares/handlers
+		c.Abort() // skip all other middlewares/handlers
 		return c.Write("OK " + app.Version)
 	})
 

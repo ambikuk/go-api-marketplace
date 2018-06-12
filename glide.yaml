@@ -2,8 +2,8 @@ package: github.com/ambikuk/go-api-marketplace
 import:
 - package: github.com/Sirupsen/logrus
   version: ^0.10
-- package: github.com/lib/pq
-  version: 4dd446efc17690bc53e154025146f73203b18309
+- package: github.com/go-sql-driver/mysql
+  version: ^1.4.0
 - package: github.com/go-ozzo/ozzo-dbx
   version: ^1.0
 - package: github.com/go-ozzo/ozzo-routing
