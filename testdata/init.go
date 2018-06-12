@@ -8,7 +8,7 @@ import (
 
 	"github.com/ambikuk/go-api-marketplace/app"
 	"github.com/go-ozzo/ozzo-dbx"
-	_ "github.com/lib/pq" // initialize posgresql for test
+	_ "github.com/go-sql-driver/mysql" // initialize posgresql for test
 )
 
 var (
@@ -21,7 +21,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
-	DB, err = dbx.MustOpen("postgres", app.Config.DSN)
+	DB, err = dbx.MustOpen("mysql", app.Config.DSN)
 	if err != nil {
 		panic(err)
 	}
