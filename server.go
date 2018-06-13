@@ -86,6 +86,8 @@ func buildRouter(logger *logrus.Logger, db *dbx.DB) *routing.Router {
 	apis.ServeProvinceResource(rg2, services.NewProvinceService(provinceDAO))
 	cityDAO := daos.NewCityDAO()
 	apis.ServeCityResource(rg2, services.NewCityService(cityDAO))
+	districtDAO := daos.NewDistrictDAO()
+	apis.ServeDistrictResource(rg2, services.NewDistrictService(districtDAO))
 
 	// wire up more resource APIs here
 
