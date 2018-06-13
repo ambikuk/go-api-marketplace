@@ -67,16 +67,21 @@ func buildRouter(logger *logrus.Logger, db *dbx.DB) *routing.Router {
 		app.Transactional(db),
 	)
 
-	rg := router.Group("/v1")
+	rg1 := router.Group("/v1")
 
-	rg.Post("/auth", apis.Auth(app.Config.JWTSigningKey))
-	rg.Use(auth.JWT(app.Config.JWTVerificationKey, auth.JWTOptions{
+	rg1.Post("/auth", apis.Auth(app.Config.JWTSigningKey))
+	rg1.Use(auth.JWT(app.Config.JWTVerificationKey, auth.JWTOptions{
 		SigningMethod: app.Config.JWTSigningMethod,
 		TokenHandler:  apis.JWTHandler,
 	}))
 
 	artistDAO := daos.NewArtistDAO()
-	apis.ServeArtistResource(rg, services.NewArtistService(artistDAO))
+	apis.ServeArtistResource(rg1, services.NewArtistService(artistDAO))
+
+
+	rg2 := router.Group("/v2")
+	countryDAO := daos.NewCountryDAO()
+	apis.ServeCountryResource(rg2, services.NewCountryService(countryDAO))
 
 	// wire up more resource APIs here
 
