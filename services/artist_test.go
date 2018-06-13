@@ -92,6 +92,13 @@ func TestArtistService_Query(t *testing.T) {
 		assert.Equal(t, 2, len(result))
 	}
 }
+func TestArtistService_Count(t *testing.T) {
+	s := NewArtistService(newMockArtistDAO())
+	result, err := s.Count(nil)
+	if assert.Nil(t, err) {
+		assert.Equal(t, 3, result)
+	}
+}
 
 func newMockArtistDAO() artistDAO {
 	return &mockArtistDAO{

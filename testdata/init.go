@@ -21,7 +21,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
-	DB, err = dbx.MustOpen("mysql", app.Config.DSN)
+	DB, err = dbx.MustOpen("mysql", app.Config.DSNTest)
 	if err != nil {
 		panic(err)
 	}

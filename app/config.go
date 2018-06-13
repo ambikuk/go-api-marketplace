@@ -17,6 +17,7 @@ type appConfig struct {
 	ServerPort         int    `mapstructure:"server_port"`
 	// the data source name (DSN) for connecting to the database. required.
 	DSN                string `mapstructure:"dsn"`
+	DSNTest            string `mapstructure:"dsn_test"`
 	// the signing method for JWT. Defaults to "HS256"
 	JWTSigningMethod   string `mapstructure:"jwt_signing_method"`
 	// JWT signing key. required.
@@ -28,6 +29,7 @@ type appConfig struct {
 func (config appConfig) Validate() error {
 	return validation.ValidateStruct(&config,
 		validation.Field(&config.DSN, validation.Required),
+		validation.Field(&config.DSNTest, validation.Required),
 		validation.Field(&config.JWTSigningKey, validation.Required),
 		validation.Field(&config.JWTVerificationKey, validation.Required),
 	)
